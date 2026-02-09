@@ -1,0 +1,32 @@
+[
+    {
+        "name": "shogatsu",
+        "start": "01-01",
+        "end": "01-07",
+        "path": "/avatar/shogatsu.png"
+    },
+    {
+        "name": "hinamatsuri",
+        "start": "02-25",
+        "end": "03-03",
+        "path": "/avatar/hinamatsuri.png"
+    },
+    {
+        "name": "helloween",
+        "start": "10-25",
+        "end": "10-31",
+        "path": "/avatar/helloween.png"
+    },
+    {
+        "name": "christmas",
+        "start": "12-20",
+        "end": "12-25",
+        "path": "/avatar/christmas.png"
+    },
+    {
+        "name": "omisoka",
+        "start": "12-30",
+        "end": "12-31",
+        "path": "/avatar/omisoka.png"
+    }
+]
