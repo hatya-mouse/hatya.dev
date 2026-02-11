@@ -16,7 +16,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="flex flex-col items-center py-8 px-8 md:px-16 min-w-screen bg-zinc-100 dark:bg-normal-900">
+            <div className="flex flex-col items-center py-8 px-8 md:px-16 min-w-screen bg-zinc-100 dark:bg-neutral-900">
                 <div className="flex flex-col gap-4 items-center justify-center w-full max-w-6xl">
                     <h2>Profile</h2>
                     <ul>
