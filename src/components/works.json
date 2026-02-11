@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Pond Extended",
+        "year": 2025,
+        "description": "An improved clone of Blockly Games's Pond with additional features and enhancements.",
+        "img": "/works/pond_window.png"
+    },
+    {
+        "name": "SimpleRSS",
+        "year": 2022,
+        "description": "A simple RSS feed reader for macOS, built with Swift.",
+        "img": "/works/simple_rss.png"
+    },
+    {
+        "name": "SortFiles",
+        "year": 2022,
+        "description": "A file sorting utility for macOS.",
+        "img": "/works/sort_files.png"
+    },
+    {
+        "name": "Music Player",
+        "year": 2024,
+        "description": "microSD music player made with Arduino and DFPlayer Mini.",
+        "img": "/works/music_player.jpg"
+    }
+]
