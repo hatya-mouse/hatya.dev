@@ -14,11 +14,11 @@ export default function WorkCard({
     return (
         <div className="flex flex-col max-w-lg gap-2">
             <Image
-                className="rounded overflow-clip"
+                className="rounded overflow-clip aspect-video"
                 src={img}
                 alt={name}
-                width={512}
-                height={256}
+                width={960}
+                height={540}
             />
 
             <div className="flex flex-col gap-1">
