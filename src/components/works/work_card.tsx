@@ -1,18 +1,21 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function WorkCard({
+    id,
     name,
     year,
     description,
     img,
 }: {
+    id: string;
     name: string;
     year: number;
     description: string;
     img: string;
 }) {
     return (
-        <div className="flex flex-col max-w-lg gap-2">
+        <Link href={`/works/${id}`} className="flex flex-col max-w-lg gap-2">
             <Image
                 className="rounded overflow-clip aspect-video object-cover"
                 src={img}
@@ -28,6 +31,6 @@ export default function WorkCard({
                 </div>
                 <p className="text-wrap">{description}</p>
             </div>
-        </div>
+        </Link>
     );
 }
