@@ -26,7 +26,6 @@ export default function Home() {
                             Affiliation: National Institute of Technology
                             (KOSEN), Nagano College
                         </li>
-                        <li>English: TOEIC L&R 875</li>
                     </ul>
 
                     <h2>Works</h2>
