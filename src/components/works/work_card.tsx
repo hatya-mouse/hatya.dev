@@ -6,19 +6,19 @@ export default function WorkCard({
     name,
     year,
     description,
-    img,
+    thumbnail,
 }: {
     id: string;
     name: string;
     year: number;
     description: string;
-    img: string;
+    thumbnail: string;
 }) {
     return (
         <Link href={`/works/${id}`} className="flex flex-col max-w-lg gap-2">
             <Image
                 className="rounded overflow-clip aspect-video object-cover"
-                src={img}
+                src={thumbnail}
                 alt={name}
                 width={960}
                 height={540}

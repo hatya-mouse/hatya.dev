@@ -1,0 +1,7 @@
+name: Music Player
+year: 2024
+tech: ["Arduino"]
+description: microSD mp4 music player made with Arduino and DFPlayer Mini.
+thumbnail: /works/2024-music-player/thumbnail.jpg
+links:
+    repository: https://github.com/hatya-mouse/music-player

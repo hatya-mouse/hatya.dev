@@ -1,0 +1,7 @@
+name: SortFiles
+year: 2022
+tech: ["Swift"]
+description: A file sorting utility for macOS.
+thumbnail: /works/2022-sort-files/thumbnail.png
+links:
+    repository: https://github.com/hatya-mouse/sortfiles

@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-    const mailAddress = "shuntar30@gmail.com";
-
     return (
         <div className="flex flex-col items-center justify-center bg-zinc-50 dark:bg-neutral-950">
             <div className="flex flex-col items-center justify-center gap-6 min-h-screen p-8">

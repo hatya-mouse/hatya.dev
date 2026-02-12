@@ -1,0 +1,8 @@
+name: CITYSCAPE
+year: 2023
+tech: ["Scratch"]
+description: A city building simulation game made with Scratch.
+thumbnail: /works/2023-cityscape/thumbnail.png
+links:
+    demo: https://scratch.mit.edu/projects/802453144/
+    embed: https://scratch.mit.edu/projects/802453144/embed/

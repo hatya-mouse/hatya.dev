@@ -1,19 +1,19 @@
 import WorkCard from "./work_card";
-import works from "./works.json";
+import { works } from "@/generated/works";
 
-export default function WorkGrid() {
-    works.sort((a, b) => b.year - a.year);
+export default async function WorkGrid() {
+    const sortedWorks = works.toSorted((a, b) => b.year - a.year);
 
     return (
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full justify-items-center align-top">
-            {works.map((work) => (
+            {sortedWorks.map((work) => (
                 <WorkCard
                     id={work.id}
                     key={work.name}
                     name={work.name}
                     description={work.description}
                     year={work.year}
-                    img={work.img}
+                    thumbnail={work.thumbnail}
                 />
             ))}
         </div>
