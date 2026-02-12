@@ -1,18 +1,78 @@
 import Avatar from "@/components/avatar/avatar";
 import WorkGrid from "@/components/works/work_grid";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
     const mailAddress = "shuntar30@gmail.com";
 
     return (
         <div className="flex flex-col items-center justify-center bg-zinc-50 dark:bg-neutral-950">
-            <div className="flex flex-row items-center justify-center gap-8 min-h-screen px-8">
-                <Avatar />
-                <div className="flex flex-col">
-                    <div className="text-gray-500 text-lg font-normal">
-                        Kosen Student
+            <div className="flex flex-col items-center justify-center gap-6 min-h-screen p-8">
+                <div className="flex flex-row items-center justify-center gap-8">
+                    <Avatar />
+                    <div className="flex flex-col">
+                        <div className="text-gray-500 text-lg font-normal">
+                            Kosen Student
+                        </div>
+                        <h1>Hatya</h1>
                     </div>
-                    <h1>Hatya</h1>
+                </div>
+
+                <div className="flex flex-row items-center gap-6">
+                    <Link
+                        className="rounded-full bg-black dark:bg-white size-12 p-2 hover:opacity-80 transition-opacity"
+                        href="https://github.com/hatya-mouse"
+                    >
+                        <picture>
+                            <source
+                                srcSet="/icons/invertocat_black.svg"
+                                media="(prefers-color-scheme: dark)"
+                            />
+                            <Image
+                                src="/icons/invertocat_white.svg"
+                                alt="GitHub"
+                                width={32}
+                                height={32}
+                            />
+                        </picture>
+                    </Link>
+
+                    <Link
+                        className="rounded-full bg-black dark:bg-white size-12 p-3 hover:opacity-80 transition-opacity"
+                        href="https://x.com/hatyanezu_mouse"
+                    >
+                        <picture>
+                            <source
+                                srcSet="/icons/x_black.png"
+                                media="(prefers-color-scheme: dark)"
+                            />
+                            <Image
+                                src="/icons/x_white.png"
+                                alt="GitHub"
+                                width={32}
+                                height={32}
+                            />
+                        </picture>
+                    </Link>
+
+                    <Link
+                        className="rounded-full bg-black dark:bg-white size-12 p-2 hover:opacity-80 transition-opacity"
+                        href="mailto:shuntar30@gmail.com"
+                    >
+                        <picture>
+                            <source
+                                srcSet="/icons/mail_dot_black.png"
+                                media="(prefers-color-scheme: dark)"
+                            />
+                            <Image
+                                src="/icons/mail_dot_white.png"
+                                alt="GitHub"
+                                width={32}
+                                height={32}
+                            />
+                        </picture>
+                    </Link>
                 </div>
             </div>
 
@@ -30,9 +90,6 @@ export default function Home() {
 
                     <h2>Works</h2>
                     <WorkGrid />
-
-                    <h2>Contact</h2>
-                    <p>Email: {mailAddress}</p>
                 </div>
             </div>
         </div>
