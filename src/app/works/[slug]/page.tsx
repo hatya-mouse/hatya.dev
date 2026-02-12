@@ -1,5 +1,6 @@
 import { works } from "@/generated/works";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function WorkPage({
@@ -29,6 +30,25 @@ export default async function WorkPage({
                 <div className="flex flex-col gap-2 flex-1">
                     <h3>{work.name}</h3>
                     <p>{work.description}</p>
+
+                    {work.links.repository && (
+                        <Link
+                            href={work.links.repository}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            View on GitHub
+                        </Link>
+                    )}
+                    {work.links.demo && (
+                        <Link
+                            href={work.links.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Play Now
+                        </Link>
+                    )}
                 </div>
             </div>
 

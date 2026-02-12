@@ -21,6 +21,8 @@ export default function Home() {
                     <Link
                         className="rounded-full bg-black dark:bg-white size-12 p-2 hover:opacity-80 transition-opacity"
                         href="https://github.com/hatya-mouse"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <picture>
                             <source
@@ -39,6 +41,8 @@ export default function Home() {
                     <Link
                         className="rounded-full bg-black dark:bg-white size-12 p-3 hover:opacity-80 transition-opacity"
                         href="https://x.com/hatyanezu_mouse"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <picture>
                             <source
@@ -57,6 +61,8 @@ export default function Home() {
                     <Link
                         className="rounded-full bg-black dark:bg-white size-12 p-2 hover:opacity-80 transition-opacity"
                         href="mailto:shuntar30@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >
                         <picture>
                             <source
