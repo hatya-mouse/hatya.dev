@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { M_PLUS_1p, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const jetBrains = JetBrains_Mono({
     weight: "500",
-    variable: "--font-jetbrains",
     subsets: ["latin"],
+    variable: "--font-jetbrains",
 });
 
-const jetBrainsBold = JetBrains_Mono({
-    weight: "800",
-    variable: "--font-jetbrains-bold",
+const mPlus1P = M_PLUS_1p({
+    weight: "400",
     subsets: ["latin"],
+    display: "swap",
+    variable: "--font-m-plus",
 });
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${jetBrains.variable} ${jetBrainsBold.variable} antialiased`}
+                className={`${jetBrains.variable} ${mPlus1P.variable} antialiased`}
             >
                 {children}
             </body>

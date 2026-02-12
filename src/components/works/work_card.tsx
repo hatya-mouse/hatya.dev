@@ -14,7 +14,7 @@ export default function WorkCard({
     return (
         <div className="flex flex-col max-w-lg gap-2">
             <Image
-                className="rounded overflow-clip aspect-video"
+                className="rounded overflow-clip aspect-video object-cover"
                 src={img}
                 alt={name}
                 width={960}
