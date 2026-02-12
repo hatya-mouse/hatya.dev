@@ -23,8 +23,26 @@ function generate() {
             const data = parse(fileContent);
 
             return {
-                id: folder,
-                ...data,
+                id: data.id,
+                name: data.name,
+                year: data.year,
+                tech: data.tech,
+                description: data.description,
+                thumbnail: data.thumbnail,
+                links: {
+                    repository:
+                        data.links && "repository" in data.links
+                            ? data.links.repository
+                            : null,
+                    demo:
+                        data.links && "demo" in data.links
+                            ? data.links.demo
+                            : null,
+                    embed:
+                        data.links && "embed" in data.links
+                            ? data.links.embed
+                            : null,
+                },
             };
         })
         .filter(Boolean);
