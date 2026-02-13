@@ -49,10 +49,12 @@ h4 {
 
 .header-color {
     background: oklch(98.5% 0 0 / 0.9);
+    border-bottom: 1px solid oklch(87.1% 0.006 286.286 / 0.9);
 }
 
 @media (prefers-color-scheme: dark) {
     .header-color {
         background: oklch(14.5% 0 0 / 0.7);
+        border-bottom: 1px solid oklch(37.1% 0 0 / 0.7);
     }
 }
