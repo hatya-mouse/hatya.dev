@@ -34,7 +34,7 @@ export default function RootLayout({
                 className={`${jetBrains.variable} ${mPlus1P.variable} antialiased`}
             >
                 <Analytics />
-                <div className="flex flex-col min-h-screen pt-8">
+                <div className="flex flex-col min-h-screen pt-12">
                     <Header />
                     {children}
                     <Footer />

@@ -17,7 +17,7 @@ export default async function WorkPage({
 
     return (
         <div className="grow flex flex-col items-center w-full">
-            <div className="flex flex-col sm:flex-row gap-4 py-6 max-w-5xl">
+            <div className="flex flex-col sm:flex-row gap-4 p-6 max-w-5xl">
                 <div className="sm:w-1/2">
                     <Image
                         className="rounded overflow-clip w-full h-auto"
@@ -54,7 +54,7 @@ export default async function WorkPage({
 
             {work.links.embed && (
                 <div className="grow flex justify-center w-full bg-zinc-100 dark:bg-neutral-900">
-                    <div className="flex flex-col gap-2 w-full max-w-5xl py-6">
+                    <div className="flex flex-col gap-2 w-full max-w-5xl p-6">
                         <h3>Play now</h3>
                         <iframe
                             className="w-full max-w-2xl aspect-4/3"
