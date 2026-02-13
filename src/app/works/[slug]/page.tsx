@@ -28,7 +28,10 @@ export default async function WorkPage({
                     />
                 </div>
                 <div className="flex flex-col gap-2 flex-1">
-                    <h3>{work.name}</h3>
+                    <div className="flex flex-row gap-2 items-center">
+                        <h3>{work.name}</h3>
+                        <p>({work.year})</p>
+                    </div>
                     <p>{work.description}</p>
 
                     {work.links.repository && (
