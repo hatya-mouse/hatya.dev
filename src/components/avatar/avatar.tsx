@@ -6,7 +6,13 @@ const normal_avatar = {
     path: "/avatar/normal.png",
 };
 
-export default function Avatar() {
+export default function Avatar({
+    width = 128,
+    height = 128,
+}: {
+    width?: number;
+    height?: number;
+}) {
     // Get the current date and format it as "MM-DD"
     const now = new Date();
     const today = `${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
@@ -21,8 +27,8 @@ export default function Avatar() {
                 src={currentAvatar?.path}
                 alt={currentAvatar?.name}
                 className="rounded-full"
-                width={128}
-                height={128}
+                width={width}
+                height={height}
                 loading="eager"
             />
         </div>
