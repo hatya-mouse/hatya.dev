@@ -1,4 +1,4 @@
-import WorkCard from "./work_card";
+import WorkCard from "./WorkCard";
 import { works } from "@/generated/works";
 
 export default async function WorkGrid() {

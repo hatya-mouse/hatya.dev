@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { M_PLUS_1p, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import Footer from "@/components/footer/Footer";
 
 const jetBrains = JetBrains_Mono({
     weight: "500",
@@ -32,7 +33,10 @@ export default function RootLayout({
                 className={`${jetBrains.variable} ${mPlus1P.variable} antialiased`}
             >
                 <Analytics />
-                {children}
+                <div className="flex flex-col min-h-screen">
+                    {children}
+                    <Footer />
+                </div>
             </body>
         </html>
     );
