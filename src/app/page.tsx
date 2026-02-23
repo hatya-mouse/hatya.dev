@@ -30,7 +30,7 @@ export default function Home() {
                     <h2>Profile</h2>
                     <ul>
                         <li>Full Name: Shuntaro Kasatani / 笠谷春太朗</li>
-                        <li>Age: 15</li>
+                        <li>Birthday: March 19, 2010</li>
                         <li>
                             Affiliation: National Institute of Technology
                             (KOSEN), Nagano College
