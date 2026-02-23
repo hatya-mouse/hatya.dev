@@ -5,4 +5,4 @@ tech: ["Arduino"]
 description: microSD mp4 music player made with Arduino and DFPlayer Mini.
 thumbnail: /works/2024-music-player/thumbnail.jpg
 links:
-    repository: https://github.com/hatya-mouse/music-player
+    repository: https://github.com/hatya-mouse/music_player
