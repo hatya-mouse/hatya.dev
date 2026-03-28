@@ -1,0 +1,8 @@
+id: 2026-audio-relief
+name: AudioRelief
+year: 2026
+tech: ["Swift", "SwiftUI", "Metal"]
+description: A simple app that lets you play audio just by sculpting a box.
+thumbnail: /works/2026-audio-relief/thumbnail.png
+links:
+    repository: https://github.com/hatya-mouse/AudioRelief
