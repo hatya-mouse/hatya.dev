@@ -1,3 +1,4 @@
+import { WorkSchema } from "../src/schema/work.ts";
 import fs from "fs";
 import path from "path";
 import { parse } from "yaml";
@@ -20,36 +21,18 @@ function generate() {
             }
 
             const fileContent = fs.readFileSync(yamlPath, "utf8");
-            const data = parse(fileContent);
 
-            return {
-                id: data.id,
-                name: data.name,
-                year: data.year,
-                tech: data.tech,
-                description: data.description,
-                thumbnail: data.thumbnail,
-                links: {
-                    repository:
-                        data.links && "repository" in data.links
-                            ? data.links.repository
-                            : null,
-                    demo:
-                        data.links && "demo" in data.links
-                            ? data.links.demo
-                            : null,
-                    embed:
-                        data.links && "embed" in data.links
-                            ? data.links.embed
-                            : null,
-                },
-            };
+            // Parse the schema using zod
+            const data = parse(fileContent);
+            const work = WorkSchema.parse(data);
+            return work;
         })
         .filter(Boolean);
 
     const content = `// This file is auto-generated. Do not edit.
-export const works = ${JSON.stringify(works, null, 4)} as const;
-export type Work = typeof works[number];`;
+import type { Work } from "@/schema/work";
+export const works: Work[] = ${JSON.stringify(works, null, 4)} as const;
+`;
 
     fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
     fs.writeFileSync(OUTPUT_FILE, content);

@@ -1,5 +1,6 @@
 // This file is auto-generated. Do not edit.
-export const works = [
+import type { Work } from "@/schema/work";
+export const works: Work[] = [
     {
         "id": "2017-jump",
         "name": "jump",
@@ -10,9 +11,8 @@ export const works = [
         "description": "A simple game, which is the first game I've ever made.",
         "thumbnail": "/works/2017-jump/thumbnail.png",
         "links": {
-            "repository": null,
             "demo": "https://scratch.mit.edu/projects/192817472/",
-            "embed": "https://scratch.mit.edu/projects/192817472/embed/"
+            "embed": "https://scratch.mit.edu/projects/192817472/embed?autostart=false"
         }
     },
     {
@@ -25,9 +25,7 @@ export const works = [
         "description": "A simple RSS feed reader for macOS, built with Swift.",
         "thumbnail": "/works/2022-simple-rss/thumbnail.png",
         "links": {
-            "repository": "https://github.com/hatya-mouse/simplerss",
-            "demo": null,
-            "embed": null
+            "repository": "https://github.com/hatya-mouse/simplerss"
         }
     },
     {
@@ -40,9 +38,7 @@ export const works = [
         "description": "A file sorting utility for macOS.",
         "thumbnail": "/works/2022-sort-files/thumbnail.png",
         "links": {
-            "repository": "https://github.com/hatya-mouse/sortfiles",
-            "demo": null,
-            "embed": null
+            "repository": "https://github.com/hatya-mouse/sortfiles"
         }
     },
     {
@@ -55,9 +51,8 @@ export const works = [
         "description": "A city building simulation game made with Scratch.",
         "thumbnail": "/works/2023-cityscape/thumbnail.png",
         "links": {
-            "repository": null,
             "demo": "https://scratch.mit.edu/projects/802453144/",
-            "embed": "https://scratch.mit.edu/projects/802453144/embed/"
+            "embed": "https://scratch.mit.edu/projects/802453144/embed?autostart=false"
         }
     },
     {
@@ -70,9 +65,8 @@ export const works = [
         "description": "Simcity-like 2D city building simulation game made with Scratch.",
         "thumbnail": "/works/2023-cityscape-island/thumbnail.png",
         "links": {
-            "repository": null,
             "demo": "https://scratch.mit.edu/projects/1012313408/",
-            "embed": "https://scratch.mit.edu/projects/1012313408/embed/"
+            "embed": "https://scratch.mit.edu/projects/1012313408/embed?autostart=false"
         }
     },
     {
@@ -85,9 +79,7 @@ export const works = [
         "description": "microSD mp4 music player made with Arduino and DFPlayer Mini.",
         "thumbnail": "/works/2024-music-player/thumbnail.jpg",
         "links": {
-            "repository": "https://github.com/hatya-mouse/music-player",
-            "demo": null,
-            "embed": null
+            "repository": "https://github.com/hatya-mouse/music_player"
         }
     },
     {
@@ -103,9 +95,22 @@ export const works = [
         "thumbnail": "/works/2025-pond-extended/thumbnail.png",
         "links": {
             "repository": "https://github.com/hatya-mouse/pond-extended",
-            "demo": "https://pond-extended.vercel.app",
-            "embed": null
+            "demo": "https://pond-extended.hatya.dev"
+        }
+    },
+    {
+        "id": "2026-audio-relief",
+        "name": "AudioRelief",
+        "year": 2026,
+        "tech": [
+            "Swift",
+            "SwiftUI",
+            "Metal"
+        ],
+        "description": "A simple app that lets you play audio just by sculpting a box.",
+        "thumbnail": "/works/2026-audio-relief/thumbnail.png",
+        "links": {
+            "repository": "https://github.com/hatya-mouse/AudioRelief"
         }
     }
 ] as const;
-export type Work = typeof works[number];

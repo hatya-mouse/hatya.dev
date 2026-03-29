@@ -7,14 +7,7 @@ export default async function WorkGrid() {
     return (
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full justify-items-center align-top">
             {sortedWorks.map((work) => (
-                <WorkCard
-                    id={work.id}
-                    key={work.name}
-                    name={work.name}
-                    description={work.description}
-                    year={work.year}
-                    thumbnail={work.thumbnail}
-                />
+                <WorkCard work={work} key={work.id} />
             ))}
         </div>
     );
