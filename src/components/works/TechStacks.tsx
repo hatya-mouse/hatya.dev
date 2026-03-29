@@ -1,6 +1,17 @@
-export default function TechStacks({ techs }: { techs: string[] }) {
+export default function TechStacks({
+    techs,
+    centralize = false,
+}: {
+    techs: string[];
+    centralize?: boolean;
+}) {
     return (
-        <div className="flex flex-wrap gap-2">
+        <div
+            className="flex flex-wrap flex-row gap-2"
+            style={{
+                justifyContent: centralize ? "center" : "flex-start",
+            }}
+        >
             {techs.map((tech) => (
                 <span
                     key={tech}
