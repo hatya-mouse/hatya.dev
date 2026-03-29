@@ -1,7 +1,7 @@
 id: 2025-pond-extended
 name: Pond Extended
 year: 2025
-tech: ["React", "Next.js", "TypeScript"]
+tech: ["React", "Next.js", "JavaScript", "TypeScript"]
 description: An improved clone of Blockly Games's Pond with additional features and enhancements.
 thumbnail: /works/2025-pond-extended/thumbnail.png
 links:

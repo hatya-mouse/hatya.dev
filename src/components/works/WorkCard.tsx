@@ -1,6 +1,7 @@
 import { Work } from "@/schema/work";
 import Image from "next/image";
 import Link from "next/link";
+import TechStacks from "./TechStacks";
 
 export default function WorkCard({ work }: { work: Work }) {
     return (
@@ -21,6 +22,7 @@ export default function WorkCard({ work }: { work: Work }) {
                     <h3>{work.name}</h3>
                     <p>({work.year})</p>
                 </div>
+                <TechStacks techs={work.tech} />
                 <p className="text-wrap">{work.description}</p>
             </div>
         </Link>

@@ -89,6 +89,7 @@ export const works: Work[] = [
         "tech": [
             "React",
             "Next.js",
+            "JavaScript",
             "TypeScript"
         ],
         "description": "An improved clone of Blockly Games's Pond with additional features and enhancements.",

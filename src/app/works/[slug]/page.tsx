@@ -1,3 +1,4 @@
+import TechStacks from "@/components/works/TechStacks";
 import { works } from "@/generated/works";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,6 +33,7 @@ export default async function WorkPage({
                         <h3>{work.name}</h3>
                         <p>({work.year})</p>
                     </div>
+                    <TechStacks techs={work.tech} />
                     <p>{work.description}</p>
 
                     {work.links.repository && (

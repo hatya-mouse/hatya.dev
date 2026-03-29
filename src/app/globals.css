@@ -1,13 +1,9 @@
 @import "tailwindcss";
+@source "../src";
 
 :root {
     --background: var(--color-zinc-50);
     --foreground: #171717;
-}
-
-@theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,7 +20,7 @@ body {
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
 }
 
 h1 {
