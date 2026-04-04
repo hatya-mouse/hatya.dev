@@ -40,7 +40,7 @@ export default function Home() {
                         </ul>
                     </div>
 
-                    <div className="flex flex-col items-center gap-4">
+                    {/*<div className="flex flex-col items-center gap-4">
                         <h2>Skills</h2>
 
                         <div className="flex flex-col items-center gap-2">
@@ -96,7 +96,7 @@ export default function Home() {
                                 centralize
                             />
                         </div>
-                    </div>
+                    </div>*/}
 
                     <h2>Works</h2>
                     <WorkGrid />
