@@ -60,7 +60,6 @@ export default async function WorkPage({
             {work.links.embed && (
                 <div className="grow flex justify-center w-full bg-zinc-100 dark:bg-neutral-900">
                     <div className="flex flex-col gap-2 w-full max-w-5xl p-6">
-                        <h3>Play now</h3>
                         <iframe
                             className="w-full max-w-2xl aspect-4/3"
                             src={work.links.embed}
