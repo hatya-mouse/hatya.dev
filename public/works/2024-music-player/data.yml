@@ -1,7 +1,7 @@
 id: 2024-music-player
 name: Music Player
 year: 2024
-tech: ["Arduino"]
+tech: ["Arduino", "Electronics"]
 description: microSD mp4 music player made with Arduino and DFPlayer Mini.
 thumbnail: /works/2024-music-player/thumbnail.jpg
 links:

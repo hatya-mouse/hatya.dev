@@ -23,6 +23,7 @@ const TechStack = z.enum([
     "Unity",
     "Godot",
     "Scratch",
+    "Electronics",
 ]);
 
 export const WorkSchema = z.object({
