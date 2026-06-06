@@ -36,7 +36,11 @@ export const WorkSchema = z.object({
     links: z.object({
         repository: z.url().optional(),
         demo: z.url().optional(),
-        embed: z.url().optional(),
+        embed: z.object({
+            header: z.string().optional(),
+            className: z.string().optional(),
+            url: z.url().optional(),
+        }),
     }),
 });
 

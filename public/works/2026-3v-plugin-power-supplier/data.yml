@@ -6,4 +6,7 @@ description: A small device to supply power to microphones using CR2032 coin bat
 thumbnail: /works/2026-3v-plugin-power-supplier/thumbnail.jpg
 links:
     repository: https://github.com/hatya-mouse/plugin-power-supplier
-    embed: https://www.youtube.com/embed/aCJ3Ztfm0Tg
+    embed:
+        header: Demo Video
+        className: aspect-video
+        url: https://www.youtube.com/embed/aCJ3Ztfm0Tg

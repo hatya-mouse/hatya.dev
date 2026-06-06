@@ -6,4 +6,7 @@ description: A simple game, which is the first game I've ever made.
 thumbnail: /works/2017-jump/thumbnail.png
 links:
     demo: https://scratch.mit.edu/projects/192817472/
-    embed: https://scratch.mit.edu/projects/192817472/embed?autostart=false
+    embed:
+        header: Play Now
+        className: aspect-[4/3]
+        url: https://scratch.mit.edu/projects/192817472/embed?autostart=false

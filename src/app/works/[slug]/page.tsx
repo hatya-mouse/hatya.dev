@@ -60,9 +60,12 @@ export default async function WorkPage({
             {work.links.embed && (
                 <div className="grow flex justify-center w-full bg-zinc-100 dark:bg-neutral-900">
                     <div className="flex flex-col gap-2 w-full max-w-5xl p-6">
+                        {work.links.embed.header && (
+                            <h3>{work.links.embed.header}</h3>
+                        )}
                         <iframe
-                            className="w-full max-w-2xl aspect-4/3"
-                            src={work.links.embed}
+                            className={`w-full max-w-2xl ${work.links.embed.className}`}
+                            src={work.links.embed.url}
                             title={work.name}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
