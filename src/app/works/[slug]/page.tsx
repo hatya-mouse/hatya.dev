@@ -65,7 +65,7 @@ export default async function WorkPage({
                             className="w-full max-w-2xl aspect-4/3"
                             src={work.links.embed}
                             title={work.name}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
                         />
                     </div>

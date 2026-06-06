@@ -1,0 +1,9 @@
+id: 2026-plugin-power-supplier
+name: 3V Plugin Power Supplier
+year: 2026
+tech: ["Electronics"]
+description: A small device to supply power to microphones using CR2032 coin battery.
+thumbnail: /works/2027-plugin-power-supplier/thumbnail.jpg
+links:
+    repository: https://github.com/hatya-mouse/plugin-power-supplier
+    embed: https://www.youtube.com/embed/aCJ3Ztfm0Tg
