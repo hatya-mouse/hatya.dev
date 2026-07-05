@@ -12,7 +12,11 @@ export const works: Work[] = [
         "thumbnail": "/works/2017-jump/thumbnail.png",
         "links": {
             "demo": "https://scratch.mit.edu/projects/192817472/",
-            "embed": "https://scratch.mit.edu/projects/192817472/embed?autostart=false"
+            "embed": {
+                "header": "Play Now",
+                "className": "aspect-[4/3]",
+                "url": "https://scratch.mit.edu/projects/192817472/embed?autostart=false"
+            }
         }
     },
     {
@@ -52,7 +56,11 @@ export const works: Work[] = [
         "thumbnail": "/works/2023-cityscape/thumbnail.png",
         "links": {
             "demo": "https://scratch.mit.edu/projects/802453144/",
-            "embed": "https://scratch.mit.edu/projects/802453144/embed?autostart=false"
+            "embed": {
+                "header": "Play Now",
+                "className": "aspect-[4/3]",
+                "url": "https://scratch.mit.edu/projects/802453144/embed?autostart=false"
+            }
         }
     },
     {
@@ -66,7 +74,11 @@ export const works: Work[] = [
         "thumbnail": "/works/2023-cityscape-island/thumbnail.png",
         "links": {
             "demo": "https://scratch.mit.edu/projects/1012313408/",
-            "embed": "https://scratch.mit.edu/projects/1012313408/embed?autostart=false"
+            "embed": {
+                "header": "Play Now",
+                "className": "aspect-[4/3]",
+                "url": "https://scratch.mit.edu/projects/1012313408/embed?autostart=false"
+            }
         }
     },
     {
@@ -74,7 +86,8 @@ export const works: Work[] = [
         "name": "Music Player",
         "year": 2024,
         "tech": [
-            "Arduino"
+            "Arduino",
+            "Electronics"
         ],
         "description": "microSD mp4 music player made with Arduino and DFPlayer Mini.",
         "thumbnail": "/works/2024-music-player/thumbnail.jpg",
@@ -97,6 +110,24 @@ export const works: Work[] = [
         "links": {
             "repository": "https://github.com/hatya-mouse/pond-extended",
             "demo": "https://pond-extended.hatya.dev"
+        }
+    },
+    {
+        "id": "2026-3v-plugin-power-supplier",
+        "name": "3V Plugin Power Supplier",
+        "year": 2026,
+        "tech": [
+            "Electronics"
+        ],
+        "description": "A small device to supply power to microphones using CR2032 coin battery.",
+        "thumbnail": "/works/2026-3v-plugin-power-supplier/thumbnail.jpg",
+        "links": {
+            "repository": "https://github.com/hatya-mouse/plugin-power-supplier",
+            "embed": {
+                "header": "Demo Video",
+                "className": "aspect-video",
+                "url": "https://www.youtube.com/embed/aCJ3Ztfm0Tg"
+            }
         }
     },
     {

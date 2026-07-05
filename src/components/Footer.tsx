@@ -1,6 +1,6 @@
-import GithubButton from "../contacts/GithubButton";
-import MailButton from "../contacts/MailButton";
-import XButton from "../contacts/XButton";
+import GithubButton from "./contacts/GithubButton";
+import MailButton from "./contacts/MailButton";
+import XButton from "./contacts/XButton";
 
 export default function Footer() {
     return (

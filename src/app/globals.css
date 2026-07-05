@@ -1,15 +1,16 @@
 @import "tailwindcss";
-@source "../src";
 
 :root {
     --background: var(--color-zinc-50);
     --foreground: #171717;
+    --border: oklch(87.1% 0.006 286.286 / 0.9);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
         --background: var(--color-neutral-950);
         --foreground: #ededed;
+        --border: oklch(37.1% 0 0 / 0.7);
     }
 }
 
@@ -24,33 +25,32 @@ a:hover {
 }
 
 h1 {
-    font-size: 48px;
-    font-weight: bold;
-}
-
-h2 {
     font-size: 32px;
     font-weight: bold;
 }
 
-h3 {
+h2 {
     font-size: 24px;
     font-weight: bold;
 }
 
-h4 {
+h3 {
     font-size: 20px;
+    font-weight: bold;
+}
+
+h4 {
     font-weight: bold;
 }
 
 .header-color {
     background: oklch(98.5% 0 0 / 0.9);
-    border-bottom: 1px solid oklch(87.1% 0.006 286.286 / 0.9);
+    border-bottom: 1px solid var(--border);
 }
 
 @media (prefers-color-scheme: dark) {
     .header-color {
         background: oklch(14.5% 0 0 / 0.7);
-        border-bottom: 1px solid oklch(37.1% 0 0 / 0.7);
+        border-bottom: 1px solid var(--border);
     }
 }

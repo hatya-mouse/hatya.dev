@@ -30,7 +30,7 @@ export default async function WorkPage({
                 </div>
                 <div className="flex flex-col gap-2 flex-1">
                     <div className="flex flex-row gap-2 items-center">
-                        <h3>{work.name}</h3>
+                        <h2>{work.name}</h2>
                         <p>({work.year})</p>
                     </div>
                     <TechStacks techs={work.tech} />
@@ -61,7 +61,7 @@ export default async function WorkPage({
                 <div className="grow flex justify-center w-full bg-zinc-100 dark:bg-neutral-900">
                     <div className="flex flex-col gap-2 w-full max-w-5xl p-6">
                         {work.links.embed.header && (
-                            <h3>{work.links.embed.header}</h3>
+                            <h2>{work.links.embed.header}</h2>
                         )}
                         <iframe
                             className={`w-full max-w-2xl ${work.links.embed.className}`}

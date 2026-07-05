@@ -1,35 +1,46 @@
+import { JetBrains_Mono } from "next/font/google";
 import Avatar from "@/components/avatar/avatar";
 import GithubButton from "@/components/contacts/GithubButton";
 import MailButton from "@/components/contacts/MailButton";
 import XButton from "@/components/contacts/XButton";
-import TechStacks from "@/components/works/TechStacks";
 import WorkGrid from "@/components/works/WorkGrid";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
+const jetBrains = JetBrains_Mono({
+    weight: "500",
+    subsets: ["latin"],
+});
 
 export default function Home() {
     return (
-        <div className="flex flex-col items-center justify-center bg-zinc-50 dark:bg-neutral-950">
-            <div className="flex flex-col items-center justify-center gap-4 min-h-screen p-8">
-                <div className="flex flex-row items-center justify-center gap-8">
-                    <Avatar />
-                    <div className="flex flex-col">
-                        <div className="text-gray-500 text-lg font-normal">
-                            Kosen Student
+        <div
+            className={`${jetBrains.className} flex flex-col min-h-screen pt-12`}
+        >
+            <Header />
+
+            <div className="flex flex-col items-center justify-center bg-zinc-100 dark:bg-neutral-900">
+                <div className="flex flex-col items-center justify-center gap-4 w-full min-h-screen p-12 bg-zinc-50 dark:bg-neutral-950">
+                    <div className="flex flex-row items-center justify-center gap-8">
+                        <Avatar />
+                        <div className="flex flex-col">
+                            <p className="text-gray-500 text-lg font-normal">
+                                Kosen Student
+                            </p>
+                            <p className="text-5xl font-bold mt-2">Hatya</p>
                         </div>
-                        <h1>Hatya</h1>
+                    </div>
+
+                    <div className="flex flex-row items-center gap-4">
+                        <GithubButton />
+                        <XButton />
+                        <MailButton />
                     </div>
                 </div>
 
-                <div className="flex flex-row items-center gap-4">
-                    <GithubButton />
-                    <XButton />
-                    <MailButton />
-                </div>
-            </div>
-
-            <div className="flex flex-col items-center py-12 px-8 md:px-16 w-full bg-zinc-100 dark:bg-neutral-900">
-                <div className="flex flex-col gap-12 items-center justify-center w-full max-w-6xl">
+                <div className="flex flex-col gap-12 items-center justify-center py-12 px-8 md:px-16 w-full max-w-6xl">
                     <div className="flex flex-col items-center gap-2">
-                        <h2>Profile</h2>
+                        <h1>Profile</h1>
                         <ul>
                             <li>Full Name: Shuntaro Kasatani / 笠谷春太朗</li>
                             <li>Birthday: March 19, 2010</li>
@@ -98,10 +109,12 @@ export default function Home() {
                         </div>
                     </div>*/}
 
-                    <h2>Works</h2>
+                    <h1>Works</h1>
                     <WorkGrid />
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

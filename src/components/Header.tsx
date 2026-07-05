@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Avatar from "../avatar/avatar";
+import Avatar from "./avatar/avatar";
 
 export default function Header() {
     return (
@@ -7,7 +7,7 @@ export default function Header() {
             <div className="flex flex-col justify-center items-center h-full w-full">
                 <Link className="flex flex-row gap-3 items-center" href="/">
                     <Avatar width={28} height={28} />
-                    <h4>Hatya</h4>
+                    <span className="text-xl font-bold">Hatya</span>
                 </Link>
             </div>
         </header>

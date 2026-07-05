@@ -31,6 +31,7 @@
         ".next/dev/types/**/*.ts",
         "**/*.mts",
         "src/schema/work.ts",
+        "src/app/quantum-ja/index.mdx",
     ],
     "exclude": ["node_modules"],
 }
