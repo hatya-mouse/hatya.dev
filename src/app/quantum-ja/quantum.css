@@ -1,0 +1,17 @@
+a {
+    color: var(--color-indigo-500);
+}
+
+.credit-link {
+    color: var(--color-neutral-600);
+}
+
+@media (prefers-color-scheme: dark) {
+    a {
+        color: var(--color-indigo-300);
+    }
+
+    .credit-link {
+        color: var(--color-neutral-400);
+    }
+}

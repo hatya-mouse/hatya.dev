@@ -6,6 +6,7 @@
       "name": "hatya.dev",
       "dependencies": {
         "@codemirror/lang-python": "^6.2.1",
+        "@codemirror/language": "^6.12.4",
         "@mdx-js/loader": "^3.1.1",
         "@mdx-js/react": "^3.1.1",
         "@next/mdx": "^16.2.10",

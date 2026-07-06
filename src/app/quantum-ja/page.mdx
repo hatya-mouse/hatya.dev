@@ -1,12 +1,23 @@
 import PythonQuiz from "@/components/quantum-ja/PythonQuiz"
+import QuantumCredit from "@/components/quantum-ja/QuantumCredit"
 
-# Hello does this work lmao
+# Quantum Learning 日本語訳
 
-A quick brown *fox* jumps over the **lazy** [dog](https://wikipedia.org/wiki/Dog). This is a test of the MDX format.
+これはIBMが開発しているQiskitの公式ドキュメントのうち、量子力学の基礎を学ぶためのチュートリアルを日本語に翻訳したものです。
+このチュートリアルの内容は全て[CC BY-SA 4.0ライセンス](https://creativecommons.org/licenses/by-sa/4.0/)の元に公開されています。
+原文は[こちら](https://github.com/Qiskit/documentation)から参照ができます。
+
+チュートリアルの問題の合間では、以下のような問題が出題されます。これらの問題もCC BY-SA 4.0ライセンスの元に公開されています。
 
 <PythonQuiz
-    quizNo={1}
-    message="Write a program that calculates the sum of two numbers."
-    initialCode="hello, python!"
-    hints={["First, you should die.", "Second, you should die again."]}
+    message="与えられた量子ビットを観測したとき、1である確率を求めるコードを作成してください。"
+    initialCode={`def calculate_probability(amplitude_0, amplitude_1):
+      # ここにコードを記述
+      return`}
+    hints={["確率振幅から確率を求める時、どのような操作を行えば良いでしょうか。"]}
 />
+
+QiskitはPythonで書かれているため、これらの問題もPythonでの回答を想定しています。
+Pythonの知識がない場合は、事前に外部のPythonチュートリアル等でPythonについて学習しておきましょう。
+
+<QuantumCredit />

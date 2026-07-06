@@ -43,6 +43,13 @@ h4 {
     font-weight: bold;
 }
 
+hr {
+    border-top: 1px solid var(--border);
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}
+
 .header-color {
     background: oklch(98.5% 0 0 / 0.9);
     border-bottom: 1px solid var(--border);

@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import ReactCodeMirror from "@uiw/react-codemirror";
+import ReactCodeMirror, { EditorState } from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import { Lightbulb, Play } from "lucide-react";
 import TextButton from "./Button";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
+import { indentUnit } from "@codemirror/language";
 
 function InternalPythonQuiz({
     quizNo,
@@ -48,7 +49,11 @@ function InternalPythonQuiz({
                 onChange={(newCode) => {
                     setCode(newCode);
                 }}
-                extensions={[python()]}
+                extensions={[
+                    python(),
+                    indentUnit.of("    "),
+                    EditorState.tabSize.of(4),
+                ]}
             />
             <div className="flex flex-row gap-2">
                 <TextButton
