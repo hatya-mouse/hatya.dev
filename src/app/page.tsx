@@ -38,18 +38,16 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-12 items-center justify-center py-12 px-8 md:px-16 w-full max-w-6xl">
-                    <div className="flex flex-col items-center gap-2">
-                        <h1>Profile</h1>
-                        <ul>
-                            <li>Full Name: Shuntaro Kasatani / 笠谷春太朗</li>
-                            <li>Birthday: March 19, 2010</li>
-                            <li>
-                                Affiliation: National Institute of Technology
-                                (KOSEN), Nagano College
-                            </li>
-                        </ul>
-                    </div>
+                <div className="flex flex-col gap-8 items-center justify-center py-12 px-8 md:px-16 w-full max-w-6xl">
+                    <h1>Profile</h1>
+                    <ul>
+                        <li>Full Name: Shuntaro Kasatani / 笠谷春太朗</li>
+                        <li>Birthday: March 19, 2010</li>
+                        <li>
+                            Affiliation: National Institute of Technology
+                            (KOSEN), Nagano College
+                        </li>
+                    </ul>
 
                     {/*<div className="flex flex-col items-center gap-4">
                         <h2>Skills</h2>

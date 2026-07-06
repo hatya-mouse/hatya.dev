@@ -1,4 +1,6 @@
-import QuantumHeader from "@/components/QuantumHeader";
+"use client";
+
+import QuantumHeader from "@/components/quantum-ja/QuantumHeader";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 
 const inter = Inter({
@@ -18,10 +20,13 @@ export default function QuantumLayout({
 }: Readonly<{ children: React.ReactNode }>) {
     return (
         <div
-            className={`${notoSansJP.variable} ${inter.variable} flex flex-col pt-12`}
+            className={`${notoSansJP.variable} ${inter.variable} flex flex-col pt-12 items-center`}
         >
             <QuantumHeader />
-            {children}
+
+            <div className="flex flex-col gap-2 py-6 md:py-12 px-8 md:px-16 w-full max-w-6xl">
+                {children}
+            </div>
         </div>
     );
 }
