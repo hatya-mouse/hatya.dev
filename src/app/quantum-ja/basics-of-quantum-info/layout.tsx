@@ -5,7 +5,7 @@ const menuContents: MenuItem[] = [
     {
         type: "page",
         title: "はじめに",
-        href: "/quantum-ja/basics-of-quantum-information",
+        href: "/quantum-ja/basics-of-quantum-info",
     },
     {
         type: "group",
@@ -13,7 +13,11 @@ const menuContents: MenuItem[] = [
         items: [
             {
                 title: "概要",
-                href: "/quantum-ja/basics-of-quantum-information/single-system",
+                href: "/quantum-ja/basics-of-quantum-info/single-systems/intro",
+            },
+            {
+                title: "古典的情報",
+                href: "/quantum-ja/basics-of-quantum-info/single-systems/classical-info",
             },
         ],
     },
