@@ -7,6 +7,16 @@ const menuContents: MenuItem[] = [
         title: "はじめに",
         href: "/quantum-ja/basics-of-quantum-information",
     },
+    {
+        type: "group",
+        categoryTitle: "単一ビットのシステム",
+        items: [
+            {
+                title: "概要",
+                href: "/quantum-ja/basics-of-quantum-information/single-system",
+            },
+        ],
+    },
 ];
 
 export default function BasicsOfQuantumInformationLayout({

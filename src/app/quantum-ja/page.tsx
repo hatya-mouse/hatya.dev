@@ -1,5 +1,7 @@
 import LinkCard from "@/components/quantum-ja/LinkCard";
+import LinkCardGroup from "@/components/quantum-ja/LinkCardGroup";
 import PythonQuiz from "@/components/quantum-ja/PythonQuiz";
+import QuantumCredit from "@/components/quantum-ja/QuantumCredit";
 import { Metadata } from "next";
 import Link from "next/link";
 
@@ -36,6 +38,8 @@ export default function QuantumLearningHome() {
             <p>
                 このチュートリアルでは前提知識として行列や複素数の基礎的な知識が必要になります。
             </p>
+
+            <hr className="my-4" />
             <h2>問題について</h2>
             <p>チュートリアルの合間で、以下のような問題が出題されます。</p>
             <PythonQuiz
@@ -52,13 +56,20 @@ export default function QuantumLearningHome() {
                 Pythonの知識がない場合は、事前に外部のPythonチュートリアル等でPythonについて学習しておきましょう。
             </p>
 
-            <LinkCard
-                type="link"
-                href="/quantum-ja/basics-of-quantum-information"
-                subtitle="基礎からスタート"
-                title="量子情報の基礎"
-                description="量子コンピュータにおけるデータの表し方や古典ビットとの相違点、量子ビットの状態について学びます。"
-            />
+            <hr className="my-4" />
+            <h2>コースを選択</h2>
+
+            <LinkCardGroup>
+                <LinkCard
+                    type="link"
+                    href="/quantum-ja/basics-of-quantum-information"
+                    subtitle="基礎からスタート"
+                    title="量子情報の基礎"
+                    description="量子コンピュータにおけるデータの表し方や古典ビットとの相違点、量子ビットの状態について学びます。"
+                />
+            </LinkCardGroup>
+
+            <QuantumCredit notTranslated />
         </div>
     );
 }

@@ -11,3 +11,7 @@
 .credit-link:hover {
     text-decoration: underline;
 }
+
+a {
+    cursor: pointer;
+}

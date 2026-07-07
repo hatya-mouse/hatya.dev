@@ -35,7 +35,7 @@ export default function QuantumLinkMenu({
     };
 
     return (
-        <aside className="w-full md:w-64 flex flex-col gap-1 p-3 border-b border-(--border) md:border-b-0 md:border-r shrink-0">
+        <aside className="w-full min-h-full md:w-64 flex flex-col gap-1 p-3 border-b border-(--border) md:border-b-0 md:border-r shrink-0 overflow-y-auto">
             {menuContents.map((item, index) => {
                 if (item.type === "page") {
                     const isActive = pathname === item.href;
@@ -96,6 +96,7 @@ export default function QuantumLinkMenu({
                                                     : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-zinc-900",
                                             )}
                                         >
+                                            {index + 1}.{subIndex + 1}&nbsp;
                                             {subItem.title}
                                         </Link>
                                     );
