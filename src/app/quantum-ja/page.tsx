@@ -62,7 +62,7 @@ export default function QuantumLearningHome() {
             <LinkCardGroup>
                 <LinkCard
                     type="link"
-                    href="/quantum-ja/basics-of-quantum-info"
+                    href="/quantum-ja/basics-of-quantum-info/intro"
                     subtitle="基礎からスタート"
                     title="量子情報の基礎"
                     description="量子コンピュータにおけるデータの表し方や古典ビットとの相違点、量子ビットの状態について学びます。"

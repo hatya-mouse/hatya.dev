@@ -1,0 +1,110 @@
+import { notFound } from "next/navigation";
+import LinkCardGroup from "@/components/quantum-ja/LinkCardGroup";
+import LinkCard from "@/components/quantum-ja/LinkCard";
+import { getNavigationPagination } from "@/utils/quantum-ja/docOrder";
+
+interface PageProps {
+    params: Promise<{ slug?: string[] }>;
+}
+
+export default async function QuantumDynamicPage({ params }: PageProps) {
+    const { slug } = await params;
+
+    if (!slug) notFound();
+
+    // The first element of the slug array is the course ID
+    const courseId = slug[0];
+    // And the rest are the sub-paths for the MDX file
+    const subPaths = slug.slice(1);
+
+    const mdxRelativePath =
+        subPaths.length === 0 ? "intro" : subPaths.join("/");
+    const currentHref = `/quantum-ja/${slug.join("/")}`;
+
+    let MDXContent;
+    let menuContents;
+
+    try {
+        const [mdxModule, menuModule] = await Promise.all([
+            import(`@/contents/quantum-ja/${courseId}/${mdxRelativePath}.mdx`),
+            import(`@/contents/quantum-ja/${courseId}/index.ts`),
+        ]);
+
+        MDXContent = mdxModule.default;
+        menuContents = menuModule.menuContents;
+    } catch (error) {
+        console.error("Failed to load mdx or menu config:", error);
+        notFound();
+    }
+
+    const { previous, next } = getNavigationPagination(
+        menuContents,
+        currentHref,
+    );
+
+    let previousDescription = undefined;
+    let nextDescription = undefined;
+
+    if (previous) {
+        try {
+            const prevSubPath = previous.href.replace(
+                `/quantum-ja/${courseId}`,
+                "",
+            );
+            const prevMdxPath =
+                prevSubPath === "" ? "intro" : prevSubPath.slice(1);
+
+            const prevModule = await import(
+                `@/contents/quantum-ja/${courseId}/${prevMdxPath}.mdx`
+            );
+            previousDescription = prevModule.metadata?.description;
+        } catch (e) {
+            console.error("Failed to load previous page metadata", e);
+        }
+    }
+
+    if (next) {
+        try {
+            const nextSubPath = next.href.replace(
+                `/quantum-ja/${courseId}`,
+                "",
+            );
+            const nextMdxPath =
+                nextSubPath === "" ? "intro" : nextSubPath.slice(1);
+
+            const nextModule = await import(
+                `@/contents/quantum-ja/${courseId}/${nextMdxPath}.mdx`
+            );
+            nextDescription = nextModule.metadata?.description;
+        } catch (e) {
+            console.error("Failed to load next page metadata", e);
+        }
+    }
+
+    return (
+        <article className="prose dark:prose-invert max-w-none w-full">
+            <MDXContent />
+
+            <hr className="my-8 border-(--border)" />
+
+            <LinkCardGroup>
+                {previous && (
+                    <LinkCard
+                        type="previous"
+                        href={previous.href}
+                        title={previous.title}
+                        description={previousDescription}
+                    />
+                )}
+                {next && (
+                    <LinkCard
+                        type="next"
+                        href={next.href}
+                        title={next.title}
+                        description={nextDescription}
+                    />
+                )}
+            </LinkCardGroup>
+        </article>
+    );
+}
