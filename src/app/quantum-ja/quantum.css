@@ -8,6 +8,10 @@
     }
 }
 
+.credit-link:hover {
+    text-decoration: underline;
+}
+
 a:hover {
     text-decoration: none;
 }

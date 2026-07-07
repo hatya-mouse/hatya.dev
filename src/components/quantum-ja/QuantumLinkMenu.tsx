@@ -18,7 +18,7 @@ export type GroupItem = {
     items: { title: string; href: string }[];
 };
 
-export type MenuItem = (SinglePageItem | GroupItem)[];
+export type MenuItem = SinglePageItem | GroupItem;
 
 export default function QuantumLinkMenu({
     menuContents,
@@ -35,7 +35,7 @@ export default function QuantumLinkMenu({
     };
 
     return (
-        <aside className="w-full md:w-64 flex flex-col gap-1 p-3 border-r border-(--border) shrink-0">
+        <aside className="w-full md:w-64 flex flex-col gap-1 p-3 border-b border-(--border) md:border-b-0 md:border-r shrink-0">
             {menuContents.map((item, index) => {
                 if (item.type === "page") {
                     const isActive = pathname === item.href;
