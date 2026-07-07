@@ -55,7 +55,7 @@ function InternalPythonQuiz({
                     EditorState.tabSize.of(4),
                 ]}
             />
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row flex-wrap gap-2">
                 <TextButton
                     variant="green"
                     onClick={() => {

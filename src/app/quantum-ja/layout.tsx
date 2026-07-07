@@ -1,9 +1,6 @@
 import QuantumHeader from "@/components/quantum-ja/QuantumHeader";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./quantum.css";
-import QuantumLinkMenu, {
-    MenuItem,
-} from "@/components/quantum-ja/QuantumLinkMenu";
 
 const inter = Inter({
     weight: "400",
