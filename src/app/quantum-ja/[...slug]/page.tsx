@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import LinkCardGroup from "@/components/quantum-ja/LinkCardGroup";
 import LinkCard from "@/components/quantum-ja/LinkCard";
 import { getNavigationPagination } from "@/utils/quantum-ja/docOrder";
+import QuantumCredit from "@/components/quantum-ja/QuantumCredit";
 
 interface PageProps {
     params: Promise<{ slug?: string[] }>;
@@ -23,6 +24,7 @@ export default async function QuantumDynamicPage({ params }: PageProps) {
 
     let MDXContent;
     let menuContents;
+    let isTranslation;
 
     try {
         const [mdxModule, menuModule] = await Promise.all([
@@ -32,6 +34,7 @@ export default async function QuantumDynamicPage({ params }: PageProps) {
 
         MDXContent = mdxModule.default;
         menuContents = menuModule.menuContents;
+        isTranslation = mdxModule.metadata?.isTranslation ?? false;
     } catch (error) {
         console.error("Failed to load mdx or menu config:", error);
         notFound();
@@ -82,10 +85,10 @@ export default async function QuantumDynamicPage({ params }: PageProps) {
     }
 
     return (
-        <article className="prose dark:prose-invert max-w-none w-full">
+        <article className="max-w-none w-full flex flex-col gap-4">
             <MDXContent />
 
-            <hr className="my-8 border-(--border)" />
+            <hr className="my-4" />
 
             <LinkCardGroup>
                 {previous && (
@@ -105,6 +108,10 @@ export default async function QuantumDynamicPage({ params }: PageProps) {
                     />
                 )}
             </LinkCardGroup>
+
+            <hr className="my-4" />
+
+            <QuantumCredit notTranslated={isTranslation ?? false} />
         </article>
     );
 }

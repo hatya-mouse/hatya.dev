@@ -7,7 +7,6 @@ export default function QuantumCredit({
 }) {
     return (
         <div className="text-neutral-500">
-            <hr className="mt-6 mb-10" />
             {notTranslated ? (
                 <div>
                     <p>
