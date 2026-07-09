@@ -33,10 +33,10 @@ export default async function QuantumDynamicLayout({
     }
 
     return (
-        <div className="flex flex-col md:flex-row w-full h-full overflow-hidden">
+        <div className="flex flex-col md:flex-row w-full h-full overflow-y-auto md:overflow-hidden">
             <QuantumLinkMenu menuContents={menuContents} />
 
-            <main className="flex-1 overflow-y-auto pb-12 pt-6 md:pt-12 px-8 md:px-16 text-base leading-relaxed tracking-wide">
+            <main className="flex-1 md:overflow-y-auto pb-12 pt-6 md:pt-12 px-8 md:px-16 text-base leading-relaxed tracking-wide">
                 <div className="w-full max-w-4xl mx-auto flex flex-col gap-4">
                     {children}
                 </div>
