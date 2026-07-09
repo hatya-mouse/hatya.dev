@@ -24,7 +24,7 @@ export default async function QuantumDynamicPage({ params }: PageProps) {
 
     let MDXContent;
     let menuContents;
-    let isTranslation;
+    let isTranslation: boolean | undefined = undefined;
 
     try {
         const [mdxModule, menuModule] = await Promise.all([
@@ -111,7 +111,7 @@ export default async function QuantumDynamicPage({ params }: PageProps) {
 
             <hr className="my-4" />
 
-            <QuantumCredit notTranslated={isTranslation ?? false} />
+            <QuantumCredit notTranslated={!(isTranslation ?? true)} />
         </article>
     );
 }

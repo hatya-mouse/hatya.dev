@@ -69,6 +69,7 @@ export default function QuantumLearningHome() {
                 />
             </LinkCardGroup>
 
+            <hr className="my-4" />
             <QuantumCredit notTranslated />
         </div>
     );
