@@ -18,6 +18,10 @@ export const menuContents: MenuItem[] = [
                 title: "古典的情報",
                 href: "/quantum-ja/basics-of-quantum-info/single-systems/classical-info",
             },
+            {
+                title: "古典的状態と確率ベクトル",
+                href: "/quantum-ja/basics-of-quantum-info/single-systems/classical-states-and-probability-vectors",
+            },
         ],
     },
 ];

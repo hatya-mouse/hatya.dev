@@ -20,6 +20,7 @@ export function useMDXComponents(): MDXComponents {
         ),
         li: (props) => <li className="my-1" {...props} />,
         ul: (props) => <ul className="list-disc list-inside" {...props} />,
+        ol: (props) => <ol className="list-decimal list-inside" {...props} />,
         hr: (props) => <hr className="my-4" {...props} />,
         ...components,
         PythonQuiz,

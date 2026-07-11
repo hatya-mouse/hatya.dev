@@ -3,11 +3,13 @@ import clsx from "clsx";
 export type CalloutType = "normal" | "warning";
 
 export default function Callout({
-    type = "normal",
     children,
+    type = "normal",
+    notTranslation = false,
 }: Readonly<{
-    type?: CalloutType;
     children: React.ReactNode;
+    type?: CalloutType;
+    notTranslation?: boolean;
 }>) {
     return (
         <div
@@ -17,6 +19,7 @@ export default function Callout({
                 type == "warning" && "border-[--alpha(var(--color-amber-500)/75%)] bg-[--alpha(var(--color-amber-500)/10%)]",
             )}
         >
+            <p className="text-neutral-500 text-sm select-none">{notTranslation && "これは原文に存在しません"}</p>
             {children}
         </div>
     );

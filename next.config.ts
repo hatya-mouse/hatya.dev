@@ -7,7 +7,12 @@ const nextConfig = {
     // Optionally, add any other Next.js config below
 };
 
-const withMDX = createMDX({});
+const withMDX = createMDX({
+    options: {
+        remarkPlugins: ["remark-math"],
+        rehypePlugins: ["rehype-katex"],
+    }
+});
 
 // Merge MDX config with Next.js config
 export default withMDX(nextConfig);
