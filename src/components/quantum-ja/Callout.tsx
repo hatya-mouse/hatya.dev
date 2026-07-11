@@ -12,7 +12,7 @@ export default function Callout({
     return (
         <div
             className={clsx(
-                "flex flex-col px-2 py-2 rounded-xl border",
+                "flex flex-col px-2 py-1.5 rounded-xl border",
                 type == "normal" && "border-(--border) bg-neutral-100 dark:bg-zinc-900",
                 type == "warning" && "border-[--alpha(var(--color-amber-500)/75%)] bg-[--alpha(var(--color-amber-500)/10%)]",
             )}
