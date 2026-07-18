@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import ReactCodeMirror, { EditorState } from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import {
@@ -56,7 +56,11 @@ def __quiz_run():
         try:
             with __ctx.redirect_stdout(__buf):
                 exec(compile(__src, "<case>", "exec"), __ns)
-            __results.append({"ok": True, "out": __buf.getvalue()})
+            __lines = [
+                __line for __line in __buf.getvalue().split("\\n") if __line != ""
+            ]
+            __answer = __lines[-1] if __lines else ""
+            __results.append({"ok": True, "out": __answer})
         except Exception:
             __results.append({"ok": False, "out": __tb.format_exc()})
     return {"results": __results}
@@ -78,7 +82,7 @@ function InternalPythonQuiz({
     cases?: Array<[string, string]>;
     hints?: Array<string>;
 }) {
-    const { runPython, stdout, isLoading, isRunning, isReady } = usePython();
+    const { runPython, stdout, isLoading, isRunning } = usePython();
     const [hasEvaluated, setHasEvaluated] = useState(false);
     const [selectedCase, setSelectedCase] = useState(0);
     const [code, setCode] = useState(initialCode);
@@ -87,21 +91,7 @@ function InternalPythonQuiz({
     );
     const isDark = useTheme().resolvedTheme === "dark";
 
-    // 開発モードの React Strict Mode によるエフェクト二重実行と react-py
-    // 内部のワーカー初期化(pyodideワーカーの起動)が競合すると、isLoading
-    // が false に戻った後も isReady が true にならないまま固まることがある
-    // (react-py 側の既知の問題で、コード自体のエラーではない)。
-    // 一度でも読み込み中を観測した後、読み込みが終わったのに準備未完了の
-    // ままなら初期化失敗とみなし、実行不能な状態のまま固まらないようにする。
-    const hasStartedLoadingRef = useRef(false);
-    if (isLoading) hasStartedLoadingRef.current = true;
-    const initFailed = hasStartedLoadingRef.current && !isLoading && !isReady;
-
-    // runPython() の完了ハンドラが呼ばれた時点では react-py 側の stdout
-    // state がまだ反映されていないことがある(内部stateの更新が1テンポ
-    // 遅れるため)。そのため .then() 内で読まず、レンダリング中に stdout
-    // から直接導出する(runPython は実行開始時に stdout をクリアするため、
-    // 新しい実行を始めれば前回の結果は自然に消える)。
+    // Parse the result using the RESULT_MARKER. If the marker is present but the JSON is incomplete, return null.
     const parsedResult = useMemo((): {
         error?: string;
         results?: Array<CaseResult>;
@@ -112,7 +102,6 @@ function InternalPythonQuiz({
         try {
             return JSON.parse(json);
         } catch {
-            // マーカーはあるが JSON が不完全(出力が途中の状態)
             return null;
         }
     }, [stdout]);
@@ -123,7 +112,7 @@ function InternalPythonQuiz({
         [parsedResult],
     );
 
-    // isRunning 中や結果が出揃う前は判定を確定させない(誤って不正解表示にしない)
+    // If the script has not been evaluated yet or it has an error, make sure to not show any result.
     const resultsReady =
         hasEvaluated &&
         !isRunning &&
@@ -171,12 +160,9 @@ function InternalPythonQuiz({
                             code,
                             cases.map(([input]) => input),
                         );
-                        runPython(script).catch(() => {
-                            // isReady になる前に呼ばれた場合など。
-                            // initFailed が画面に反映されるのでここでは握りつぶす。
-                        });
+                        runPython(script);
                     }}
-                    disabled={isLoading || isRunning || initFailed}
+                    disabled={isLoading || isRunning}
                 >
                     <Play size={16} />
                     <p className="font-bold">
@@ -184,9 +170,7 @@ function InternalPythonQuiz({
                             ? "読み込み中"
                             : isRunning
                               ? "実行中"
-                              : initFailed
-                                ? "初期化エラー"
-                                : "実行！"}
+                              : "実行！"}
                     </p>
                 </TextButton>
 
@@ -237,12 +221,6 @@ function InternalPythonQuiz({
                     {runError}
                 </pre>
             )}
-            {initFailed && (
-                <p className="text-sm text-red-600 dark:text-red-400">
-                    Python実行環境の初期化に失敗しました。ページを再読み込みしてください。
-                </p>
-            )}
-
             {hasEvaluated && !runError && cases.length > 0 && (
                 <>
                     <div className="flex flex-row flex-wrap gap-2">
