@@ -46,6 +46,11 @@ export default function QuantumLearningHome() {
                 message="与えられた2つの値の和を計算するプログラムを記述してください。"
                 initialCode={`def add(a, b):
     return # ここにコードを記述`}
+                cases={[
+                    ["print(add(1, 2))", "3"],
+                    ["print(add(143, 462))", "605"],
+                    ["print(add(123456789, 123456789))", "246913578"],
+                ]}
                 hints={[
                     "引数のaとbを足し合わせ、returnで計算結果を出力します。",
                     "Pythonでは+演算子を使うことで2値の和を求めることができます。",

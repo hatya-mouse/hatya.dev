@@ -7,8 +7,8 @@ export const textButtonVariants = cva(
         "rounded-lg",
         "cursor-pointer",
         "transition-all duration-100 ease-in-out",
-        "hover:brightness-90",
-        "active:brightness-70",
+        "not-disabled:hover:brightness-80",
+        "not-disabled:active:brightness-70",
         "disabled:cursor-default disabled:opacity-50",
     ],
     {
