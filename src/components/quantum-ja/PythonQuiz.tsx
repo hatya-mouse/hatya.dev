@@ -16,6 +16,7 @@ import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import { indentUnit } from "@codemirror/language";
 import { usePython } from "react-py";
+import Markdown from "react-markdown";
 import TextButton from "./Button";
 
 type ExecResult = "none" | "correct" | "incorrect";
@@ -152,11 +153,11 @@ function InternalPythonQuiz({
                     : "bg-neutral-100 dark:bg-zinc-900 border-(--border)",
             )}
         >
-            <p>
+            <div>
                 <strong>演習{quizNo ? `${quizNo}.` : ""}</strong>
                 &nbsp;
-                {message}
-            </p>
+                <Markdown>{message}</Markdown>
+            </div>
             <ReactCodeMirror
                 className="w-full text-base border border-(--border)"
                 theme={isDark ? "dark" : "light"}
@@ -222,7 +223,7 @@ function InternalPythonQuiz({
                     }`}
                 >
                     <strong>ヒント&nbsp;{index + 1}</strong>
-                    <p>{hint}</p>
+                    <Markdown>{hint}</Markdown>
                 </div>
             ))}
 

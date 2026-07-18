@@ -22,6 +22,10 @@ export const menuContents: MenuItem[] = [
                 title: "古典的状態と確率ベクトル",
                 href: "/quantum-ja/basics-of-quantum-info/single-systems/classical-states-and-probability-vectors",
             },
+            {
+                title: "確率的状態の観測",
+                href: "/quantum-ja/basics-of-quantum-info/single-systems/measuring-probabilistic-states",
+            }
         ],
     },
 ];
