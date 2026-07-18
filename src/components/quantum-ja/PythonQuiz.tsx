@@ -20,10 +20,9 @@ import TextButton from "./Button";
 
 type ExecResult = "none" | "correct" | "incorrect";
 
-// stdout に埋め込む結果の目印。通常の print 出力と衝突しないように。
+// A character to mark the result in stdout.
 const RESULT_MARKER = "__QUIZ_RESULT__";
 
-// UTF-8 安全な base64 エンコード（絵文字や日本語コードにも対応）
 function toBase64(str: string): string {
     const bytes = new TextEncoder().encode(str);
     let binary = "";
@@ -33,9 +32,7 @@ function toBase64(str: string): string {
 
 type CaseResult = { ok: boolean; out: string };
 
-// 全ケースを 1 回の実行で処理する Python スクリプトを生成する。
-// 各ケースの stdout を contextlib.redirect_stdout で個別にキャプチャし、
-// 最後に JSON を 1 行だけ print する（react-py の単一 stdout でも壊れない）。
+// Generates a Python script that processes all cases in a single execution.
 function buildScript(userCode: string, inputs: Array<string>): string {
     const userB64 = toBase64(userCode);
     const inputsB64 = toBase64(JSON.stringify(inputs));
