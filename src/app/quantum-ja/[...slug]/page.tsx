@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-        title: metadata.title,
+        title: `${metadata.title} – Quantum Learning 日本語訳`,
         description: metadata.description,
         keywords: metadata.keywords,
     }
