@@ -9,7 +9,7 @@ export async function generateMetadata({ params }: {params: Promise<{ slug: stri
     const { slug } = await params;
     const work = works.find((work) => work.id === slug);
     return {
-        title: work?.name ?? "Work Not Found",
+        title: `${work?.name ?? "Work Not Found"} — Hatya`,
         description: work?.description ?? "",
         keywords: work?.tech ?? "",
     }
