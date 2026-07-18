@@ -1,9 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import ReactCodeMirror, { EditorState } from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
-import { Lightbulb, Play } from "lucide-react";
+import {
+    AlertTriangle,
+    Check,
+    Hourglass,
+    Lightbulb,
+    Play,
+    X,
+} from "lucide-react";
 import clsx from "clsx";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
@@ -71,22 +78,34 @@ function InternalPythonQuiz({
     cases?: Array<[string, string]>;
     hints?: Array<string>;
 }) {
-    const { runPython, stdout, isLoading, isRunning } = usePython();
+    const { runPython, stdout, isLoading, isRunning, isReady } = usePython();
     const [hasEvaluated, setHasEvaluated] = useState(false);
+    const [selectedCase, setSelectedCase] = useState(0);
     const [code, setCode] = useState(initialCode);
     const [hintOpen, setHintOpen] = useState<Array<boolean>>(
         hints.map(() => false),
     );
     const isDark = useTheme().resolvedTheme === "dark";
 
+    // 開発モードの React Strict Mode によるエフェクト二重実行と react-py
+    // 内部のワーカー初期化(pyodideワーカーの起動)が競合すると、isLoading
+    // が false に戻った後も isReady が true にならないまま固まることがある
+    // (react-py 側の既知の問題で、コード自体のエラーではない)。
+    // 一度でも読み込み中を観測した後、読み込みが終わったのに準備未完了の
+    // ままなら初期化失敗とみなし、実行不能な状態のまま固まらないようにする。
+    const hasStartedLoadingRef = useRef(false);
+    if (isLoading) hasStartedLoadingRef.current = true;
+    const initFailed = hasStartedLoadingRef.current && !isLoading && !isReady;
+
     // runPython() の完了ハンドラが呼ばれた時点では react-py 側の stdout
     // state がまだ反映されていないことがある(内部stateの更新が1テンポ
     // 遅れるため)。そのため .then() 内で読まず、レンダリング中に stdout
     // から直接導出する(runPython は実行開始時に stdout をクリアするため、
     // 新しい実行を始めれば前回の結果は自然に消える)。
-    const parsedResult = useMemo(():
-        | { error?: string; results?: Array<CaseResult> }
-        | null => {
+    const parsedResult = useMemo((): {
+        error?: string;
+        results?: Array<CaseResult>;
+    } | null => {
         const markerIndex = stdout.indexOf(RESULT_MARKER);
         if (markerIndex === -1) return null;
         const json = stdout.slice(markerIndex + RESULT_MARKER.length);
@@ -152,9 +171,12 @@ function InternalPythonQuiz({
                             code,
                             cases.map(([input]) => input),
                         );
-                        runPython(script);
+                        runPython(script).catch(() => {
+                            // isReady になる前に呼ばれた場合など。
+                            // initFailed が画面に反映されるのでここでは握りつぶす。
+                        });
                     }}
-                    disabled={isLoading || isRunning}
+                    disabled={isLoading || isRunning || initFailed}
                 >
                     <Play size={16} />
                     <p className="font-bold">
@@ -162,7 +184,9 @@ function InternalPythonQuiz({
                             ? "読み込み中"
                             : isRunning
                               ? "実行中"
-                              : "実行！"}
+                              : initFailed
+                                ? "初期化エラー"
+                                : "実行！"}
                     </p>
                 </TextButton>
 
@@ -177,6 +201,7 @@ function InternalPythonQuiz({
                                 return newState;
                             });
                         }}
+                        selected={hintOpen[index]}
                     >
                         <Lightbulb size={16} />
                         <p className={clsx(hintOpen[index] && "font-bold")}>
@@ -202,15 +227,98 @@ function InternalPythonQuiz({
                 <div className="font-bold text-lg">🎉 正解！</div>
             )}
             {execResult === "incorrect" && (
-                <div className="font-bold text-lg">不正解</div>
+                <div className="font-bold text-lg flex flex-row gap-1 items-center">
+                    <X className="text-red-600 dark:text-red-400" />
+                    不正解
+                </div>
             )}
             {runError && (
-                <pre className="w-full whitespace-pre-wrap text-sm text-red-500">
+                <pre className="w-full whitespace-pre-wrap text-sm text-red-600 dark:text-red-400">
                     {runError}
                 </pre>
             )}
+            {initFailed && (
+                <p className="text-sm text-red-600 dark:text-red-400">
+                    Python実行環境の初期化に失敗しました。ページを再読み込みしてください。
+                </p>
+            )}
 
-            {/*{resultsReady && !runError && ()}*/}
+            {hasEvaluated && !runError && cases.length > 0 && (
+                <>
+                    <div className="flex flex-row flex-wrap gap-2">
+                        {cases.map((_, index) => {
+                            const caseReady = index < outputs.length;
+                            const isCorrect =
+                                caseReady && outputs[index] === cases[index][1];
+                            return (
+                                <TextButton
+                                    key={index}
+                                    variant="noOutline"
+                                    onClick={() => setSelectedCase(index)}
+                                    selected={selectedCase === index}
+                                >
+                                    {caseReady ? (
+                                        isCorrect ? (
+                                            <Check
+                                                className="text-lime-700 dark:text-lime-400"
+                                                size={16}
+                                            />
+                                        ) : (
+                                            <AlertTriangle
+                                                className="text-red-600 dark:text-red-400"
+                                                size={16}
+                                            />
+                                        )
+                                    ) : (
+                                        <Hourglass
+                                            className="text-yellow-600 dark:text-yellow-400"
+                                            size={16}
+                                        />
+                                    )}
+                                    <p
+                                        className={clsx(
+                                            selectedCase === index &&
+                                                "font-bold",
+                                        )}
+                                    >
+                                        &nbsp;ケース #{index + 1}
+                                    </p>
+                                </TextButton>
+                            );
+                        })}
+                    </div>
+                    <div className="w-full flex flex-col gap-2 px-3 py-2 border border-(--border) bg-neutral-50 dark:bg-zinc-800 rounded-lg">
+                        <div>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                                期待される出力
+                            </p>
+                            <pre className="w-full whitespace-pre-wrap text-sm">
+                                {cases[selectedCase][1]}
+                            </pre>
+                        </div>
+                        <div>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                                実際の出力
+                            </p>
+                            <pre
+                                className={clsx(
+                                    "w-full whitespace-pre-wrap text-sm",
+                                    selectedCase < outputs.length
+                                        ? outputs[selectedCase] ===
+                                          cases[selectedCase][1]
+                                            ? "text-lime-700 dark:text-lime-400"
+                                            : "text-red-600 dark:text-red-400"
+                                        : "text-yellow-600 dark:text-yellow-400",
+                                )}
+                            >
+                                {selectedCase < outputs.length
+                                    ? outputs[selectedCase]
+                                    : "Evaluating..."}
+                            </pre>
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 }

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 export const textButtonVariants = cva(
     [
         "px-1.5 py-0.5",
-        "flex flex-row items-center justify-center gap-2",
+        "flex flex-row items-center justify-center gap-1",
         "rounded-lg",
         "cursor-pointer",
         "transition-all duration-100 ease-in-out",
@@ -15,12 +15,16 @@ export const textButtonVariants = cva(
         variants: {
             variant: {
                 normal: "bg-neutral-50 dark:bg-zinc-800 border border-(--border)",
-                noOutline: "hover:bg-[rgba(255,255,255,0.1)]",
+                noOutline: "hover:bg-[rgba(0,0,0,0.1)] dark:hover:bg-[rgba(255,255,255,0.1)]",
                 green: "bg-lime-600 text-white border border-(--border)",
             },
+            selected: {
+                true: "bg-[rgba(0,0,0,0.1)] dark:bg-[rgba(255,255,255,0.1)]",
+            }
         },
         defaultVariants: {
             variant: "normal",
+            selected: false,
         },
     },
 );
@@ -33,11 +37,12 @@ export interface TextButtonProps
 export default function TextButton({
     className,
     variant,
+    selected,
     ...props
 }: TextButtonProps) {
     return (
         <button
-            className={textButtonVariants({ variant, className })}
+            className={textButtonVariants({ variant, selected, className })}
             {...props}
         />
     );
