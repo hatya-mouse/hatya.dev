@@ -15,7 +15,7 @@ export const menuContents: MenuItem[] = [
                 href: "/quantum-ja/basics-of-quantum-info/single-systems/overview",
             },
             {
-                title: "古典的情報",
+                title: "古典情報",
                 href: "/quantum-ja/basics-of-quantum-info/single-systems/classical-info",
             },
             {
