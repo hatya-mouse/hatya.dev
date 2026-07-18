@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import ReactCodeMirror, { EditorState } from "@uiw/react-codemirror";
 import { python } from "@codemirror/lang-python";
 import {
@@ -120,6 +120,28 @@ function InternalPythonQuiz({
             ? "correct"
             : "incorrect"
         : "none";
+
+    useEffect(() => {
+        if (window && execResult === "correct") {
+            import("@hiseb/confetti").then((module) => {
+                const confetti = module.default;
+                confetti({
+                    position: { x: 0, y: 0 },
+                    count: 200,
+                    size: 3,
+                    velocity: 400,
+                    fade: false,
+                });
+                confetti({
+                    position: { x: window.innerWidth, y: 0 },
+                    count: 200,
+                    size: 3,
+                    velocity: 400,
+                    fade: false,
+                });
+            });
+        }
+    }, [execResult]);
 
     return (
         <div
