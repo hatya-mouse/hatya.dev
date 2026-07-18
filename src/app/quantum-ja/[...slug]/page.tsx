@@ -1,11 +1,45 @@
 import { notFound } from "next/navigation";
-import LinkCardGroup from "@/components/quantum-ja/LinkCardGroup";
-import LinkCard from "@/components/quantum-ja/LinkCard";
 import { getNavigationPagination } from "@/utils/quantum-ja/docOrder";
+import { Metadata } from "next";
+import LinkCard from "@/components/quantum-ja/LinkCard";
+import LinkCardGroup from "@/components/quantum-ja/LinkCardGroup";
 import QuantumCredit from "@/components/quantum-ja/QuantumCredit";
 
 interface PageProps {
     params: Promise<{ slug?: string[] }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { slug } = await params;
+    if (!slug) notFound();
+
+    const courseId = slug[0];
+    const subPaths = slug.slice(1);
+    const mdxRelativePath =
+        subPaths.length === 0 ? "intro" : subPaths.join("/");
+
+    let metadata;
+
+    try {
+        const [mdxModule,] = await Promise.all([
+            import(`@/contents/quantum-ja/${courseId}/${mdxRelativePath}.mdx`),
+            import(`@/contents/quantum-ja/${courseId}/index.ts`),
+        ]);
+        metadata = mdxModule.metadata;
+    } catch (error) {
+        console.error("Failed to load mdx or menu config:", error);
+        return {
+            title: "Quantum Computing",
+            description: "Quantum Computing",
+            keywords: ["quantum computing", "量子コンピュータ"],
+        }
+    }
+
+    return {
+        title: metadata.title,
+        description: metadata.description,
+        keywords: metadata.keywords,
+    }
 }
 
 export default async function QuantumDynamicPage({ params }: PageProps) {

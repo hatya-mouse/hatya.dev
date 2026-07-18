@@ -1,8 +1,19 @@
-import TechStacks from "@/components/works/TechStacks";
-import { works } from "@/generated/works";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { works } from "@/generated/works";
+import TechStacks from "@/components/works/TechStacks";
+
+export async function generateMetadata({ params }: {params: Promise<{ slug: string }>}): Promise<Metadata> {
+    const { slug } = await params;
+    const work = works.find((work) => work.id === slug);
+    return {
+        title: work?.name ?? "Work Not Found",
+        description: work?.description ?? "",
+        keywords: work?.tech ?? "",
+    }
+}
 
 export default async function WorkPage({
     params,

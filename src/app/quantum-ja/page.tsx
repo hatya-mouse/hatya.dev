@@ -7,7 +7,8 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "Quantum Learning 日本語訳",
-    description: "This is the description for SEO purposes.",
+    description: "IBM Quantum Learningの非公式日本語訳です。本文の日本語訳の他、Pythonによるインタラクティブな練習問題も用意しています。",
+    keywords: ["量子コンピュータ", "Quantum Computing", "量子情報", "Quantum Information", "量子力学", "Quantum Mechanics", "Qiskit", "量子学習", "Quantum Learning", "日本語訳"],
 };
 
 export default function QuantumLearningHome() {
