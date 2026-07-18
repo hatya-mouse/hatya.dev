@@ -153,11 +153,9 @@ function InternalPythonQuiz({
                     : "bg-neutral-100 dark:bg-zinc-900 border-(--border)",
             )}
         >
-            <div>
-                <strong>演習{quizNo ? `${quizNo}.` : ""}</strong>
-                &nbsp;
-                <Markdown>{message}</Markdown>
-            </div>
+            <Markdown>
+                {`**演習${quizNo ? `${quizNo}.` : ""}** ${message}`}
+            </Markdown>
             <ReactCodeMirror
                 className="w-full text-base border border-(--border)"
                 theme={isDark ? "dark" : "light"}
