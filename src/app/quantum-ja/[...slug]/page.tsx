@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import LinkCard from "@/components/quantum-ja/LinkCard";
 import LinkCardGroup from "@/components/quantum-ja/LinkCardGroup";
 import QuantumCredit from "@/components/quantum-ja/QuantumCredit";
+import { quantumKeywords } from "@/contents/quantum-ja/keywords";
 
 interface PageProps {
     params: Promise<{ slug?: string[] }>;
@@ -31,14 +32,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         return {
             title: "Quantum Computing",
             description: "Quantum Computing",
-            keywords: ["quantum computing", "量子コンピュータ"],
+            keywords: quantumKeywords,
         }
     }
 
     return {
         title: `${metadata.title} — Quantum Learning 日本語訳`,
         description: metadata.description,
-        keywords: metadata.keywords,
+        keywords: [...quantumKeywords, ...metadata.keywords],
     }
 }
 

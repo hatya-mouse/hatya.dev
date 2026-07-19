@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "DEEPER" };
+export const metadata: Metadata = { title: "DEEPER", description: "" };
 
 export default async function Hatya({
     params,
