@@ -50,9 +50,13 @@ export default function QuantumLearningHome() {
                 initialCode={`def add(a, b):
     return # ここにコードを記述`}
                 cases={[
-                    ["print(add(1, 2))", "3"],
-                    ["print(add(143, 462))", "605"],
-                    ["print(add(123456789, 123456789))", "246913578"],
+                    ["add(1, 2)", "3", true],
+                    ["add(143, -462)", "-319", true],
+                    ["add(123456789, 123456789)", "246913578", true],
+                    ["add(0, 0)", "0", false],
+                    ["add(-1, 1)", "0", false],
+                    ["add(-100, -200)", "-300", false],
+                    ["add(999999999, 1)", "1000000000", false],
                 ]}
                 hints={[
                     "引数のaとbを足し合わせ、returnで計算結果を出力します。",

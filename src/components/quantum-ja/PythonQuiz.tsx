@@ -77,7 +77,7 @@ function InternalPythonQuiz({
     quizNo?: number;
     message?: string;
     initialCode?: string;
-    cases?: Array<[string, string]>;
+    cases?: Array<[string, string, boolean]>;
     hints?: Array<string>;
 }) {
     const { runPython, stdout, isLoading, isRunning } = usePython();
@@ -176,7 +176,7 @@ function InternalPythonQuiz({
                         setHasEvaluated(true);
                         const script = buildScript(
                             code,
-                            cases.map(([input]) => input),
+                            cases.map(([input]) => `print(${input})`),
                         );
                         runPython(script);
                     }}
@@ -242,48 +242,43 @@ function InternalPythonQuiz({
             {hasEvaluated && !runError && cases.length > 0 && (
                 <>
                     <div className="flex flex-row flex-wrap gap-2">
-                        {cases.map((_, index) => {
-                            const caseReady = index < outputs.length;
-                            const isCorrect =
-                                caseReady && outputs[index] === cases[index][1];
-                            return (
-                                <TextButton
-                                    key={index}
-                                    variant="noOutline"
-                                    onClick={() => setSelectedCase(index)}
-                                    selected={selectedCase === index}
-                                >
-                                    {caseReady ? (
-                                        isCorrect ? (
-                                            <Check
-                                                className="text-lime-700 dark:text-lime-400"
-                                                size={16}
-                                            />
-                                        ) : (
-                                            <AlertTriangle
-                                                className="text-red-600 dark:text-red-400"
-                                                size={16}
-                                            />
-                                        )
-                                    ) : (
-                                        <Hourglass
-                                            className="text-yellow-600 dark:text-yellow-400"
-                                            size={16}
-                                        />
-                                    )}
-                                    <p
-                                        className={clsx(
-                                            selectedCase === index &&
-                                                "font-bold",
-                                        )}
+                        {cases
+                            .filter((c) => c[2])
+                            .map((_, index) => {
+                                const caseReady = index < outputs.length;
+                                const isCorrect =
+                                    caseReady &&
+                                    outputs[index] === cases[index][1];
+                                return (
+                                    <TextButton
+                                        key={index}
+                                        variant="noOutline"
+                                        onClick={() => setSelectedCase(index)}
+                                        selected={selectedCase === index}
                                     >
-                                        &nbsp;ケース #{index + 1}
-                                    </p>
-                                </TextButton>
-                            );
-                        })}
+                                        {caseStatusIcon(caseReady, isCorrect)}
+                                        <p
+                                            className={clsx(
+                                                selectedCase === index &&
+                                                    "font-bold",
+                                            )}
+                                        >
+                                            ケース #{index + 1}
+                                        </p>
+                                    </TextButton>
+                                );
+                            })}
+                        {showHiddenCases(cases, outputs)}
                     </div>
                     <div className="w-full flex flex-col gap-2 px-3 py-2 border border-(--border) bg-neutral-50 dark:bg-zinc-800 rounded-lg">
+                        <div>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                                テストコード
+                            </p>
+                            <pre className="w-full whitespace-pre-wrap text-sm">
+                                {cases[selectedCase][0]}
+                            </pre>
+                        </div>
                         <div>
                             <p className="text-sm text-neutral-500 dark:text-neutral-400">
                                 期待される出力
@@ -327,3 +322,45 @@ const PythonQuiz = dynamic(() => Promise.resolve(InternalPythonQuiz), {
 });
 
 export default PythonQuiz;
+
+function caseStatusIcon(caseReady: boolean, isCorrect: boolean) {
+    return caseReady ? (
+        isCorrect ? (
+            <Check className="text-lime-700 dark:text-lime-400" size={16} />
+        ) : (
+            <AlertTriangle
+                className="text-red-600 dark:text-red-400"
+                size={16}
+            />
+        )
+    ) : (
+        <Hourglass className="text-yellow-600 dark:text-yellow-400" size={16} />
+    );
+}
+
+function showHiddenCases(
+    cases: Array<[string, string, boolean]>,
+    outputs: Array<string>,
+) {
+    // Create an array of all cases with their original index
+    const casesWithIndex = cases.map((c, i) => ({ data: c, globalIndex: i }));
+    // Then filter the array to get only the hidden cases
+    const hiddenCases = casesWithIndex.filter((item) => !item.data[2]);
+    if (hiddenCases.length === 0) {
+        return null;
+    }
+
+    const numberOfCorrect = hiddenCases.filter(
+        (item) => item.data[1] === outputs[item.globalIndex],
+    ).length;
+
+    const areCorrect = numberOfCorrect === hiddenCases.length;
+    return (
+        <TextButton key="hiddenCases" variant="noOutline" disabled>
+            {caseStatusIcon(cases.length === outputs.length, areCorrect)}
+            <p>
+                隠しケース ({numberOfCorrect}/{hiddenCases.length})
+            </p>
+        </TextButton>
+    );
+}

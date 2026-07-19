@@ -15,12 +15,13 @@ export const textButtonVariants = cva(
         variants: {
             variant: {
                 normal: "bg-neutral-50 dark:bg-zinc-800 border border-(--border)",
-                noOutline: "hover:bg-[rgba(0,0,0,0.1)] dark:hover:bg-[rgba(255,255,255,0.1)]",
+                noOutline:
+                    "hover:bg-[rgba(0,0,0,0.1)] dark:hover:bg-[rgba(255,255,255,0.1)]",
                 green: "bg-lime-600 text-white border border-(--border)",
             },
             selected: {
                 true: "bg-[rgba(0,0,0,0.1)] dark:bg-[rgba(255,255,255,0.1)]",
-            }
+            },
         },
         defaultVariants: {
             variant: "normal",

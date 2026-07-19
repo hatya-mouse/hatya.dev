@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
         title: `${metadata.title} — Quantum Learning 日本語訳`,
         description: metadata.description,
-        keywords: [...quantumKeywords, ...metadata.keywords],
+        keywords: Array.isArray(metadata.keywords) ? [...quantumKeywords, ...metadata.keywords] : quantumKeywords,
     }
 }
 

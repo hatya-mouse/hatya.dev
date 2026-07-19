@@ -57,3 +57,29 @@ hr {
         border-bottom: 1px solid var(--border);
     }
 }
+
+.katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem 0;
+
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 20px,
+        #000 calc(100% - 20px),
+        transparent
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent,
+        #000 20px,
+        #000 calc(100% - 20px),
+        transparent
+    );
+}
+
+.katex-display > .katex {
+    white-space: nowrap;
+}
