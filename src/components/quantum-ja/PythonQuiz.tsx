@@ -31,36 +31,40 @@ function toBase64(str: string): string {
     return btoa(binary);
 }
 
-type CaseResult = { ok: boolean; out: string };
+type CaseResult = { ok: boolean; out: string; is_correct: boolean };
 
 // Generates a Python script that processes all cases in a single execution.
-function buildScript(userCode: string, inputs: Array<string>): string {
+function buildScript(userCode: string, cases: Array<[string, string, boolean]>): string {
     const userB64 = toBase64(userCode);
-    const inputsB64 = toBase64(JSON.stringify(inputs));
+    const casesB64 = toBase64(JSON.stringify(cases));
     return `
 import base64 as __b64, io as __io, contextlib as __ctx, json as __json, traceback as __tb
 
 def __quiz_run():
     __user = __b64.b64decode("${userB64}").decode("utf-8")
-    __inputs = __json.loads(__b64.b64decode("${inputsB64}").decode("utf-8"))
+    __cases = __json.loads(__b64.b64decode("${casesB64}").decode("utf-8"))
     __ns = {}
     try:
         exec(compile(__user, "<user>", "exec"), __ns)
     except Exception:
         return {"error": __tb.format_exc()}
     __results = []
-    for __src in __inputs:
+    for __src, __expected_str, _ in __cases:
         __buf = __io.StringIO()
         try:
             with __ctx.redirect_stdout(__buf):
-                exec(compile(__src, "<case>", "exec"), __ns)
-            __lines = [
-                __line for __line in __buf.getvalue().split("\\n") if __line != ""
-            ]
-            __answer = __lines[-1] if __lines else ""
-            __results.append({"ok": True, "out": __answer})
+                exec(compile(f"print({__src})", "<case>", "exec"), __ns)
+            __lines = [__l for __l in __buf.getvalue().split("\\n") if __l != ""]
+            __actual_str = __lines[-1] if __lines else ""
+            try:
+                __actual_obj = eval(__actual_str, {})
+                __expected_obj = eval(__expected_str, {})
+                __is_correct = __actual_obj == __expected_obj
+            except Exception:
+                __is_correct = __actual_str.strip() == __expected_str.strip()
+            __results.append({"ok": True, "out": __actual_str, "is_correct": __is_correct})
         except Exception:
-            __results.append({"ok": False, "out": __tb.format_exc()})
+            __results.append({"ok": False, "out": __tb.format_exc(), "is_correct": False})
     return {"results": __results}
 
 print("${RESULT_MARKER}" + __json.dumps(__quiz_run()))
@@ -89,7 +93,7 @@ function InternalPythonQuiz({
     );
     const isDark = useTheme().resolvedTheme === "dark";
 
-    // Parse the result using the RESULT_MARKER. If the marker is present but the JSON is incomplete, return null.
+    // Parse the result using the RESULT_MARKER. If the marker is present but the JSON is incomplete, return null
     const parsedResult = useMemo((): {
         error?: string;
         results?: Array<CaseResult>;
@@ -105,19 +109,19 @@ function InternalPythonQuiz({
     }, [stdout]);
 
     const runError = parsedResult?.error ?? null;
-    const outputs = useMemo(
-        () => parsedResult?.results?.map((r) => r.out.trim()) ?? [],
+    const caseResults = useMemo(
+        () => parsedResult?.results ?? [],
         [parsedResult],
     );
 
-    // If the script has not been evaluated yet or it has an error, make sure to not show any result.
+    // If the script has not been evaluated yet or it has an error, make sure to not show any result
     const resultsReady =
         hasEvaluated &&
         !isRunning &&
         !runError &&
-        outputs.length === cases.length;
+        caseResults.length === cases.length;
     const execResult: ExecResult = resultsReady
-        ? cases.every(([, answer], index) => outputs[index] === answer)
+        ? caseResults.every((r) => r.is_correct)
             ? "correct"
             : "incorrect"
         : "none";
@@ -174,10 +178,7 @@ function InternalPythonQuiz({
                     variant="green"
                     onClick={() => {
                         setHasEvaluated(true);
-                        const script = buildScript(
-                            code,
-                            cases.map(([input]) => `print(${input})`),
-                        );
+                        const script = buildScript(code, cases);
                         runPython(script);
                     }}
                     disabled={isLoading || isRunning}
@@ -245,10 +246,9 @@ function InternalPythonQuiz({
                         {cases
                             .filter((c) => c[2])
                             .map((_, index) => {
-                                const caseReady = index < outputs.length;
+                                const caseReady = index < caseResults.length;
                                 const isCorrect =
-                                    caseReady &&
-                                    outputs[index] === cases[index][1];
+                                    caseReady && caseResults[index].is_correct;
                                 return (
                                     <TextButton
                                         key={index}
@@ -268,7 +268,7 @@ function InternalPythonQuiz({
                                     </TextButton>
                                 );
                             })}
-                        {showHiddenCases(cases, outputs)}
+                        {showHiddenCases(cases, caseResults)}
                     </div>
                     <div className="w-full flex flex-col gap-2 px-3 py-2 border border-(--border) bg-neutral-50 dark:bg-zinc-800 rounded-lg">
                         <div>
@@ -294,16 +294,15 @@ function InternalPythonQuiz({
                             <pre
                                 className={clsx(
                                     "w-full whitespace-pre-wrap text-sm",
-                                    selectedCase < outputs.length
-                                        ? outputs[selectedCase] ===
-                                          cases[selectedCase][1]
+                                    selectedCase < caseResults.length
+                                        ? caseResults[selectedCase].is_correct
                                             ? "text-lime-700 dark:text-lime-400"
                                             : "text-red-600 dark:text-red-400"
                                         : "text-yellow-600 dark:text-yellow-400",
                                 )}
                             >
-                                {selectedCase < outputs.length
-                                    ? outputs[selectedCase]
+                                {selectedCase < caseResults.length
+                                    ? caseResults[selectedCase].out
                                     : "Evaluating..."}
                             </pre>
                         </div>
@@ -340,7 +339,7 @@ function caseStatusIcon(caseReady: boolean, isCorrect: boolean) {
 
 function showHiddenCases(
     cases: Array<[string, string, boolean]>,
-    outputs: Array<string>,
+    caseResults: Array<CaseResult>,
 ) {
     // Create an array of all cases with their original index
     const casesWithIndex = cases.map((c, i) => ({ data: c, globalIndex: i }));
@@ -351,13 +350,13 @@ function showHiddenCases(
     }
 
     const numberOfCorrect = hiddenCases.filter(
-        (item) => item.data[1] === outputs[item.globalIndex],
+        (item) => caseResults[item.globalIndex]?.is_correct,
     ).length;
 
     const areCorrect = numberOfCorrect === hiddenCases.length;
     return (
         <TextButton key="hiddenCases" variant="noOutline" disabled>
-            {caseStatusIcon(cases.length === outputs.length, areCorrect)}
+            {caseStatusIcon(caseResults.length === cases.length, areCorrect)}
             <p>
                 隠しケース ({numberOfCorrect}/{hiddenCases.length})
             </p>
